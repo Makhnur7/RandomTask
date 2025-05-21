@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <title>TaskTwix — Генератор заданий</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/templatemo-space-dynamic.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+</head>
+
+<script>
+  function getRandomTask() {
+    fetch("/random-task/")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Ошибка при получении задания");
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("task-title").innerText = data.title;
+      })
+      .catch(error => {
+        document.getElementById("task-title").innerText = "Ошибка загрузки задания.";
+        console.error("Ошибка:", error);
+      });
+  }
+</script>
+
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<!-- <div id="js-preloader" class="js-preloader">
+  <div class="preloader-inner">
+    <span class="dot"></span>
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div> -->
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <a href="{% url 'index' %}" class="logo">
+            <h4>Twix<span>Task</span></h4>
+          </a>
+          <ul class="nav">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <!-- <li class="scroll-to-section"><a href="#about">О чём</a></li> -->
+            <li class="scroll-to-section"><a href="#portfolio">Интерактивы</a></li>
+            <li><a href="{% url 'index' %}#services">Польза</a></li>
+            <li><a href="{% url 'index' %}#blog">В тренде</a></li> 
+            <li><a href="{% url 'task_list' %}">Задания и Челленджи</a></li>
+            <li><div class="main-red-button"><a href="{% url 'index' %}#contact">Связаться сейчас</a></div></li> 
+          </ul>        
+          <a class='menu-trigger'>
+              <span>Меню</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <h6> Добро пожаловать в TwixTask</h6>
+                <h2>Мы сделали <em>Генератор Задач</em> &amp; <span>Челленджей</span> и Игр </h2>
+                <p>Интерактивный сервис, который помогает находить задания на каждый день: для весёлой компании, командной работы, обучения и просто развлечения.</p>
+                <form id="search" action="#" method="GET">
+                  <!-- <fieldset>
+                    <input type="address" name="address" class="email" placeholder="Название интерактива..." autocomplete="on" required>
+                  </fieldset>
+                  <fieldset>
+                    <button type="submit" class="main-button">Сгенерировать</button>
+                  </fieldset> -->
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="{% static 'assets/images/banner-right-image.png' %}" alt="team meeting">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="about" class="about-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="left-image wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <img src="{% static 'assets/images/about-left-image.png' %}" alt="person graphic">
+          </div>
+        </div>
+        <div class="col-lg-8 align-self-center">
+          <div class="services">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                  <div class="icon">
+                    <img src="{% static 'assets/images/service-icon-01.png' %}" alt="reporting">
+                  </div>
+                  <div class="right-text">
+                    <h4>Задания</h4>
+                    <p>Короткие интеллектуальные задачки для продуктивного дня.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+                  <div class="icon">
+                    <img src="{% static 'assets/images/service-icon-02.png' %}" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Челленджи</h4>
+                    <p>Смелые и забавные вызовы — проверь, на что ты способен!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.9s">
+                  <div class="icon">
+                    <img src="{% static 'assets/images/service-icon-03.png' %}" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Игры</h4>
+                    <p>Весёлые и неожиданные задания для друзей и коллектива</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="item wow fadeIn" data-wow-duration="1s" data-wow-delay="1.1s">
+                  <div class="icon">
+                    <img src="{% static 'assets/images/service-icon-04.png' %}" alt="">
+                  </div>
+                  <div class="right-text">
+                    <h4>Загадки</h4>
+                    <p>Случайные загадки для тренировки ума. Разгадай — если сможешь!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="portfolio" class="our-portfolio section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading  wow bounceIn" data-wow-duration="1s" data-wow-delay="0.4s">
+            <h2>Что выберешь ты? <em>Логика, </em>реакция, креатив &amp; <span>вызов</span></h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-sm-6">
+          <a href="{% url 'task_list' %}">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+              <div class="hidden-content">
+                <h4>Задачи</h4>
+                <p>Логические <br>
+                  Математические <br>
+                  На последовательность<br>
+                  Простые для разминки</p>
+              </div>
+              <div class="showed-content">
+                <img src="{% static 'assets/images/Polozhenie_ob_UTs.gif' %}" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="{% url 'task_list' %}">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+              <div class="hidden-content">
+                <h4>Челленджи</h4>
+                <p>На время <br>
+                  Физические <br>
+                  Социальные (сделай комплимент)<br>
+                  Творческие (нарисуй, придумай)</p>
+              </div>
+              <div class="showed-content">
+                <img src="{% static 'assets/images/pngtree-funny-emoticons-scary-png-image_7391166.png' %}" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="{% url 'task_list' %}">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+              <div class="hidden-content">
+                <h4>Загадки</h4>
+                <p>На логику<br>
+                  Классические народные<br>
+                  Детские загадки<br>
+                  Загадки с подвохом</p>
+              </div>
+              <div class="showed-content">
+                <img src="{% static 'assets/images/what.png' %}" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a href="{% url 'task_list' %}">
+            <div class="item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+              <div class="hidden-content">
+                <h4>Игры</h4>
+                <p>Словесные игры<br>
+                  На память<br>
+                  С ограничениями<br>
+                  Игры для пары/команды</p>
+              </div>
+              <div class="showed-content">
+                <img src="{% static 'assets/images/game.png' %}" alt="">
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div id="services" class="our-services section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center  wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="left-image">
+            <img src="{% static 'assets/images/services-left-image.png' %}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="section-heading">
+            <h2> Общая польза генератора заданий на <em>навыки </em> &amp; личные <span>Качества </span> и развитие мозга</h2>
+            <p> Каждое задание — это шаг к более быстрому мышлению, ярким идеям и уверенным действиям. Задачи, загадки, челленджи и игры работают вместе, чтобы тренировать мозг и делать развитие интересным.</p>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="first-bar progress-skill-bar">
+                <h4>Креативность и скорость реакции</h4>
+                <span>84%</span>
+                <div class="filled-bar"></div>
+                <div class="full-bar"></div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="second-bar progress-skill-bar">
+                <h4>Внимательность и концентрация</h4>
+                <span>89%</span>
+                <div class="filled-bar"></div>
+                <div class="full-bar"></div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="third-bar progress-skill-bar">
+                <h4>Логическое мышление</h4>
+                <span>94%</span>
+                <div class="filled-bar"></div>
+                <div class="full-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="blog" class="our-blog section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.25s">
+          <div class="section-heading">
+            <h2>Самые <em>популярные </em>задания <span>этой недели: </span></h2>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.25s">
+          <div class="top-dec">
+            <img src="{% static 'assets/images/blog-dec.png' %}" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
+          <div class="left-image">
+            <a href="#"><img src="{% static 'assets/images/big-blog-thumb.jpg' %}" alt="Workspace Desktop"></a>
+            <div class="info">
+              <div class="inner-content">
+                <ul>
+                  <li><i class="fa fa-calendar"></i> 29 Maя 2025</li>
+                  <li><i class="fa fa-users"></i> Игры </li>
+                  <li><i class="fa fa-folder"></i> Командные </li>
+                </ul>
+                <a href="#"><h4>"Угадай, кто я" &amp;"Логическая ловушка" </h4></a>
+                <p>Весёлая игра, которая объединяет! Одно задание — и весь класс, компания или команда включаются в процесс. Идеально для разминки, снятия напряжения и развития ассоциативного мышления.</p>
+                <div class="main-blue-button">
+                  <a href="#"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
+          <div class="right-list">
+            <ul>
+              <li>
+                <div class="left-content align-self-center">
+                  <span><i class="fa fa-calendar"></i> 27 Maя 2025</span>
+                  <a href="#"><h4>🧠 Игры на память </h4></a>
+                  <p>Проверь, сколько ты сможешь запомнить за 10 секунд! Идеально для тренировки краткосрочной памяти.</p>
+                </div>
+                <div class="right-image">
+                  <a href="#"><img src="{% static 'assets/images/blog-thumb-01.jpg' %}" alt=""></a>
+                </div>
+              </li>
+              <li>
+                <div class="left-content align-self-center">
+                  <span><i class="fa fa-calendar"></i> 30 Maя 2025</span>
+                  <a href="#"><h4>🤔 Ассоциации</h4></a>
+                  <p>Угадай, что задумал другой игрок по намёкам и ключевым словам. Идеально для тренировки воображения и логики.</p>
+                </div>
+                <div class="right-image">
+                  <a href="#"><img src="{% static 'assets/images/blog-thumb-01.jpg' %}" alt=""></a>
+                </div>
+              </li>
+              <li>
+                <div class="left-content align-self-center">
+                  <span><i class="fa fa-calendar"></i> 23 Maя 2025</span>
+                  <a href="#"><h4>🎭 Ролевые мини-сценки</h4></a>
+                  <p>Притворись профессором, говорящим только вопросами… или котом, который объясняет физику. Креативность — в бой!</p>
+                </div>
+                <div class="right-image">
+                  <img src="{% static 'assets/images/contact-decoration.png' %}" alt="">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact" class="contact-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <div class="section-heading">
+            <h2>Поделись своим мнением или предложи идею для новых заданий!</h2>
+            <p>Нам важно знать, что тебе нравится, и что ты хотел(а) бы видеть в генераторе.</p>
+            <div class="phone-info">
+              <h4>Напиши нам прямо в Telegram: <span><i class="fa fa-phone"></i> <a href="#">@TwixTask</a></span></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <form id="contact" action="" method="post">
+            <div class="row">
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="name" name="name" id="name" placeholder="Имя" autocomplete="on" required>
+                </fieldset>
+              <!-- </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="surname" name="surname" id="surname" placeholder="" autocomplete="on" required>
+                </fieldset> -->
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Почта" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" type="text" class="form-control" id="message" placeholder="Отзыв или предложение" required=""></textarea>  
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="main-button ">Отправить</button>
+                </fieldset>
+              </div>
+            </div>
+            <div class="contact-dec">
+              <img src="{% static 'assets/images/contact-decoration.png' %}" alt="">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.25s">
+          <p>© Created with the support of Mahnur Asmat & Toromyrzaeva Takhmina
+          
+          <br>Design: <a>aiibekovna.tz</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!-- Scripts -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+<script src="{% static 'assets/js/animation.js' %}"></script>
+<script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+<script src="{% static 'assets/js/templatemo-custom.js' %}"></script>
+
+</body>
+</html>
+
+

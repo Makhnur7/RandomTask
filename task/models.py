@@ -25,13 +25,13 @@ class Difficulty(models.Model):
     
 class Task(models.Model):
 
-    name = models.CharField(max_length=100)
     title = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     difficulty = models.ForeignKey(Difficulty, on_delete=models.CASCADE)
+    answer = models.TextField(blank=True)
 
     def __str__(self): 
-        return f"{self.name}"
+        return f"{self.title}"
     
     
 
