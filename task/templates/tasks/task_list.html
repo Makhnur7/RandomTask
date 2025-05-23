@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
- 
-{% block content %} 
+
+{% block content %}
 <style>
-
-    .after-header {
+  .after-header {
     margin-top: 120px;
-    }
-
+  }
 </style>
 
 
@@ -34,9 +32,37 @@
         </select>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-primary w-100" onclick="loadTasks()">Фильтровать</button>
+        <button class="red-button" onclick="loadTasks()">Фильтровать</button>
       </div>
     </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <input type="checkbox" id="random-checkbox" />
+        <label for="random-checkbox">Показать в случайном порядке</label>
+      </div>
+    </div>
+
+<style>
+  .red-button {
+    display: inline-block;
+    background-color: #fe3f40;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .red-button:hover {
+    background-color: #e03a3b;
+  }
+</style>
 
     <!-- Список заданий -->
     <div class="row" id="task-container">
@@ -50,8 +76,9 @@
   async function loadTasks() {
     const cat = document.getElementById("category-filter").value;
     const diff = document.getElementById("difficulty-filter").value;
-    let url = "/tasks/";
+    const isRandom = document.getElementById("random-checkbox").checked;
 
+    let url = "/api/tasks/";
     const params = [];
     if (cat) params.push(`category=${cat}`);
     if (diff) params.push(`difficulty=${diff}`);
@@ -64,6 +91,11 @@
 
     if (data.length === 0) {
       container.innerHTML = "<p>Ничего не найдено по фильтрам.</p>";
+      return;
+    }
+
+    if (isRandom) {
+      data.sort(() => Math.random() - 0.5); 
     }
 
     data.forEach(task => {
@@ -71,14 +103,27 @@
       div.classList.add("col-md-6", "mb-4");
 
       div.innerHTML = `
-        <div class="card shadow p-3">
-          <h5>${task.title}</h5>
-          <p><strong>Категория:</strong> ${task.category}</p>
-          <p><strong>Ответ:</strong> ${task.answer || "—"}</p>
-        </div>
-      `;
+      <div class="card shadow p-3 rounded-4 border-0">
+        <h5>${task.title}</h5>
+        <p><strong>Категория:</strong> ${task.category}</p>
+        <button class="red-button toggle-answer">Показать ответ/условие</button>
+        <p class="task-answer d-none"><strong>Ответ/Условие :</strong> ${task.answer || "—"}</p>
+      </div>
+    `;
+
       container.appendChild(div);
+
+      const toggleBtn = div.querySelector(".toggle-answer");
+      const answer = div.querySelector(".task-answer");
+
+      toggleBtn.addEventListener("click", () => {
+        answer.classList.toggle("d-none");
+        toggleBtn.textContent = answer.classList.contains("d-none")
+          ? "Показать ответ/условие"
+          : "Скрыть";
+      });
     });
+
   }
 
   async function loadFilters() {
@@ -87,7 +132,7 @@
     const catSelect = document.getElementById('category-filter');
     categories.forEach(cat => {
       const opt = document.createElement('option');
-      opt.value = cat.id;
+      opt.value = cat.name;
       opt.textContent = cat.name;
       catSelect.appendChild(opt);
     });
@@ -97,7 +142,7 @@
     const diffSelect = document.getElementById('difficulty-filter');
     diffs.forEach(diff => {
       const opt = document.createElement('option');
-      opt.value = diff.id;
+      opt.value = diff.level;
       opt.textContent = diff.level;
       diffSelect.appendChild(opt);
     });
