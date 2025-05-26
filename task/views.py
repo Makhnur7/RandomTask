@@ -34,9 +34,25 @@ class DifficultyCreateAPIView(generics.ListCreateAPIView):
 
 
 
-class TaskCreateAPIView(generics.ListCreateAPIView):
+# class TaskCreateAPIView(generics.ListCreateAPIView):
+#     serializer_class = TaskSerializers
+#     queryset = Task.objects.all()
+
+
+class TaskListAPIView(generics.ListAPIView):
     serializer_class = TaskSerializers
-    queryset = Task.objects.all()
+    
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        category = self.request.query_params.get('category')
+        difficulty = self.request.query_params.get('difficulty')
+        if category:
+            queryset = queryset.filter(category_id=category)
+        if difficulty:
+            queryset = queryset.filter(difficulty_id=difficulty)
+
+        return queryset
+
 
 
 class TaskRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
