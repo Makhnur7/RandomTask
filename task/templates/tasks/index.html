@@ -43,18 +43,6 @@
 
 <body>
 
-<!-- ***** Preloader Start ***** -->
-<!-- <div id="js-preloader" class="js-preloader">
-  <div class="preloader-inner">
-    <span class="dot"></span>
-    <div class="dots">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-</div> -->
-<!-- ***** Preloader End ***** -->
 
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
@@ -67,7 +55,6 @@
           </a>
           <ul class="nav">
             <li><a href="{% url 'index' %}">Главная</a></li>
-            <!-- <li class="scroll-to-section"><a href="#about">О чём</a></li> -->
             <li class="scroll-to-section"><a href="#portfolio">Интерактивы</a></li>
             <li><a href="{% url 'index' %}#services">Польза</a></li>
             <li><a href="{% url 'index' %}#blog">В тренде</a></li> 
@@ -95,12 +82,6 @@
                 <h2>Мы сделали <em>Генератор Задач</em> &amp; <span>Челленджей</span> и Игр </h2>
                 <p>Интерактивный сервис, который помогает находить задания на каждый день: для весёлой компании, командной работы, обучения и просто развлечения.</p>
                 <form id="search" action="#" method="GET">
-                  <!-- <fieldset>
-                    <input type="address" name="address" class="email" placeholder="Название интерактива..." autocomplete="on" required>
-                  </fieldset>
-                  <fieldset>
-                    <button type="submit" class="main-button">Сгенерировать</button>
-                  </fieldset> -->
                 </form>
               </div>
             </div>
@@ -254,11 +235,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   <div id="services" class="our-services section">
     <div class="container">
       <div class="row">
@@ -303,7 +279,6 @@
     </div>
   </div>
 
-
   <div id="blog" class="our-blog section">
     <div class="container">
       <div class="row">
@@ -321,7 +296,7 @@
       <div class="row">
         <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.25s">
           <div class="left-image">
-            <a href="#"><img src="{% static 'assets/images/big-blog-thumb.jpg' %}" alt="Workspace Desktop"></a>
+            <a href="#"><img src="{% static 'assets/images/blog-thumb.jpg' %}" alt="Workspace Desktop"></a>
             <div class="info">
               <div class="inner-content">
                 <ul>
@@ -347,9 +322,9 @@
                   <a href="#"><h4>🧠 Игры на память </h4></a>
                   <p>Проверь, сколько ты сможешь запомнить за 10 секунд! Идеально для тренировки краткосрочной памяти.</p>
                 </div>
-                <div class="right-image">
-                  <a href="#"><img src="{% static 'assets/images/blog-thumb-01.jpg' %}" alt=""></a>
-                </div>
+                <!-- <div class="right-image">
+                  <a href="#"><img src="{% static 'assets/images/blog-thumb-3.jpg' %}" alt=""></a>
+                </div> -->
               </li>
               <li>
                 <div class="left-content align-self-center">
@@ -357,9 +332,9 @@
                   <a href="#"><h4>🤔 Ассоциации</h4></a>
                   <p>Угадай, что задумал другой игрок по намёкам и ключевым словам. Идеально для тренировки воображения и логики.</p>
                 </div>
-                <div class="right-image">
-                  <a href="#"><img src="{% static 'assets/images/blog-thumb-01.jpg' %}" alt=""></a>
-                </div>
+                <!-- <div class="right-image">
+                  <a href="#"><img src="{% static 'assets/images/blog-thumb-3.jpg' %}" alt=""></a>
+                </div> -->
               </li>
               <li>
                 <div class="left-content align-self-center">

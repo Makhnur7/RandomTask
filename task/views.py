@@ -1,10 +1,15 @@
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import TaskFilter
+from django.db.models import Q
+import random
 
 
 from . models import Task, Category, Difficulty
-from .serializers import CategorySerializers, TaskSerializers, DifficultySerializers
+from .serializers import CategorySerializer, TaskSerializer, DifficultySerializer
 
 
 from django.shortcuts import render
@@ -19,45 +24,57 @@ def task_list_view(request):
 
 
 class CategoryCreateAPIView(generics.ListCreateAPIView):
-    serializer_class = CategorySerializers
+    serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
 class CategoryRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CategorySerializers
+    serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
 
 
 class DifficultyCreateAPIView(generics.ListCreateAPIView):
-    serializer_class = DifficultySerializers
+    serializer_class = DifficultySerializer
     queryset = Difficulty.objects.all()
 
 
 
-# class TaskCreateAPIView(generics.ListCreateAPIView):
-#     serializer_class = TaskSerializers
-#     queryset = Task.objects.all()
-
-
-class TaskListAPIView(generics.ListAPIView):
-    serializer_class = TaskSerializers
-    
-    def get_queryset(self):
-        queryset = Task.objects.all()
-        category = self.request.query_params.get('category')
-        difficulty = self.request.query_params.get('difficulty')
-        if category:
-            queryset = queryset.filter(category_id=category)
-        if difficulty:
-            queryset = queryset.filter(difficulty_id=difficulty)
-
-        return queryset
-
+class TaskCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+    queryset = Task.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'difficulty']
 
 
 class TaskRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TaskSerializer
     queryset = Task.objects.all()
-    serializer_class = TaskSerializers
+
+class TaskCreateAPIView(generics.ListCreateAPIView):
+    serializer_class = TaskSerializer
+    queryset = Task.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = TaskFilter
+
+class TaskFilteredListAPIView(ListAPIView):
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        queryset = Task.objects.select_related('category', 'difficulty').all()
+        category_name = self.request.query_params.get('category')
+        difficulty_level = self.request.query_params.get('difficulty')
+        randomize = self.request.query_params.get('random')
+
+        if category_name:
+            queryset = queryset.filter(category__name=category_name)
+        if difficulty_level:
+            queryset = queryset.filter(difficulty__level=difficulty_level)
+        if randomize == "1":
+            queryset = list(queryset)
+            random.shuffle(queryset)
+
+        return queryset
+
 
 
 

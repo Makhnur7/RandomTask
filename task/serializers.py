@@ -3,22 +3,20 @@ from rest_framework import serializers
 from .models import Category, Difficulty, Task
 
 
-class CategorySerializers(serializers.ModelSerializer):
-
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ['id', 'name']
 
-class DifficultySerializers(serializers.ModelSerializer):
-
+class DifficultySerializer(serializers.ModelSerializer):
     class Meta:
         model = Difficulty
-        fields = "__all__"
+        fields = ['id', 'level']
 
-class TaskSerializers(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name', read_only=True)
+    difficulty = serializers.CharField(source='difficulty.level', read_only=True)
 
     class Meta:
         model = Task
-        fields =  "__all__"
-
-        
+        fields = ['id', 'title', 'category', 'difficulty', 'answer']
