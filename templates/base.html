@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <title>TaskTwix — Генератор заданий</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/templatemo-space-dynamic.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+</head>
+
+<!-- <script>
+  function getRandomTask() {
+    fetch("/random-task/")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Ошибка при получении задания");
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById("task-title").innerText = data.title;
+      })
+      .catch(error => {
+        document.getElementById("task-title").innerText = "Ошибка загрузки задания.";
+        console.error("Ошибка:", error);
+      });
+  }
+</script> -->
+
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<!-- <div id="js-preloader" class="js-preloader">
+  <div class="preloader-inner">
+    <span class="dot"></span>
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div> -->
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <a href="{% url 'index' %}" class="logo">
+            <h4>Twix<span>Task</span></h4>
+          </a>
+          <ul class="nav">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <!-- <li class="scroll-to-section"><a href="#portfolio">Интерактивы</a></li> -->
+            <!-- <li><a href="{% url 'index' %}#services">Польза</a></li> -->
+            <!-- <li><a href="{% url 'index' %}#blog">В тренде</a></li>  -->
+            <li><a href="{% url 'task_list' %}">Задания и Челленджи</a></li>
+            <li><a href="{% url 'index' %}#contact">Связаться с нами</a></li>
+            <li class="main-red-button"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+          </ul>        
+          <a class='menu-trigger'>
+              <span>Меню</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  {% block content %}
+
+  {% endblock %}
+  
+</main>
+
+<style>
+  textarea {
+    resize: none;
+  }
+</style>
+
+  <div id="contact" class="contact-us section" style="background-image: url('{% static "assets/images/about-bg.png" %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <div class="section-heading">
+            <h2>Поделись своим мнением или предложи идею для новых заданий!</h2>
+            <p>Нам важно знать, что тебе нравится, и что ты хотел(а) бы видеть в генераторе.</p>
+            <div class="phone-info">
+              <h4>Напиши нам прямо в Telegram: <span><i class="fa fa-phone"></i> <a href="https://t.me/aiibekovna">@aiibekovna_tz</a></span></h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <form id="contact" action="{% url 'feedback_form' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="name" name="name" id="name" placeholder="Имя" autocomplete="on" required>
+                </fieldset>
+              <!-- </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <input type="surname" name="surname" id="surname" placeholder="" autocomplete="on" required>
+                </fieldset> -->
+              </div>
+         <div id="feedback-form" class="col-lg-12">
+           <form method="post" action="#feedback-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-lg-12">
+                  <fieldset>
+                    <input type="email" name="email" id="email" placeholder="Почта" required>
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <textarea name="message" class="form-control" id="message" placeholder="Отзыв или предложение" required></textarea>  
+                  </fieldset>
+                </div>
+                <div class="col-lg-12">
+                  <fieldset>
+                    <button type="submit" id="form-submit" class="main-button">Отправить</button>
+                  </fieldset>
+                </div>
+              </div>
+            </form>
+          </div>
+
+            <div class="contact-dec">
+              <img src="{% static 'assets/images/contact-decoration.png' %}" alt="">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+
+    
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.25s">
+          <p>© Created with the support of Mahnur Asmat & Toromyrzaeva Takhmina
+          
+          <br>Design: <a>aiibekovna.tz</a></p>
+        </div>
+      </div>
+    </div> -->
+  </footer>
+<!-- Scripts -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+<script src="{% static 'assets/js/animation.js' %}"></script>
+<script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+<script src="{% static 'assets/js/templatemo-custom.js' %}"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  .after-header {
+    margin-top: 120px;
+  }
+</style>
+
+
+<section class="section after-header" id="task-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-lg-12 text-center">
+        <h2>Все Задания и Челленджи</h2>
+        <p class="text-muted">Выбери интересное задание или челлендж и попробуй выполнить его прямо сейчас!</p>
+      </div>
+    </div>
+
+
+    <!-- Фильтрация по категориям (если нужно) -->
+    <div class="row mb-4">
+      <div class="col-md-5">
+        <select id="category-filter" class="form-select">
+          <option value="">Все категории</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <select id="difficulty-filter" class="form-select">
+          <option value="">Любая сложность</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="red-button" onclick="loadTasks()">Фильтровать</button>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <input type="checkbox" id="random-checkbox" />
+        <label for="random-checkbox">Показать в случайном порядке</label>
+      </div>
+    </div>
+
+<style>
+  .red-button {
+    display: inline-block;
+    background-color: #fe3f40;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .red-button:hover {
+    background-color: #e03a3b;
+  }
+</style>
+
+    <!-- Список заданий -->
+    <div class="row" id="task-container">
+      <p>Загрузка заданий...</p>
+    </div>
+  </div>
+</section>
+
+<!-- Скрипт для загрузки задач с API -->
+<script>
+  async function loadTasks() {
+    const cat = document.getElementById("category-filter").value;
+    const diff = document.getElementById("difficulty-filter").value;
+    const isRandom = document.getElementById("random-checkbox").checked;
+
+    let url = "/api/tasks/";
+    const params = [];
+    if (cat) params.push(`category=${cat}`);
+    if (diff) params.push(`difficulty=${diff}`);
+    if (params.length > 0) url += `?${params.join('&')}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+    const container = document.getElementById("task-container");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>Ничего не найдено по фильтрам.</p>";
+      return;
+    }
+
+    if (isRandom) {
+      data.sort(() => Math.random() - 0.5); 
+    }
+
+    data.forEach(task => {
+      const div = document.createElement("div");
+      div.classList.add("col-md-6", "mb-4");
+
+      div.innerHTML = `
+      <div class="card shadow p-3 rounded-4 border-0">
+        <h5>${task.description}</h5>
+        <p><strong>Категория:</strong> ${task.category}</p>
+        <button class="red-button toggle-answer">Показать ответ/условие</button>
+        <p class="task-answer d-none"><strong>Ответ/Условие :</strong> ${task.answer || "—"}</p>
+      </div>
+    `;
+
+      container.appendChild(div);
+
+      const toggleBtn = div.querySelector(".toggle-answer");
+      const answer = div.querySelector(".task-answer");
+
+      toggleBtn.addEventListener("click", () => {
+        answer.classList.toggle("d-none");
+        toggleBtn.textContent = answer.classList.contains("d-none")
+          ? "Показать ответ/условие"
+          : "Скрыть";
+      });
+    });
+
+  }
+
+  async function loadFilters() {
+    const catRes = await fetch('/categories/');
+    const categories = await catRes.json();
+    const catSelect = document.getElementById('category-filter');
+    categories.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat.name;
+      opt.textContent = cat.name;
+      catSelect.appendChild(opt);
+    });
+
+    const diffRes = await fetch('/difficulties/');
+    const diffs = await diffRes.json();
+    const diffSelect = document.getElementById('difficulty-filter');
+    diffs.forEach(diff => {
+      const opt = document.createElement('option');
+      opt.value = diff.level;
+      opt.textContent = diff.level;
+      diffSelect.appendChild(opt);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadFilters().then(loadTasks);
+  });
+</script>
+{% endblock %}
