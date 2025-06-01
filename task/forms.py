@@ -16,31 +16,37 @@ class TaskForm(forms.ModelForm):
         fields = ['category', 'description','difficulty', 'answer']
 
 
-# class LoginForm(forms.Form):
-#     username = forms.CharField()
-#     password = forms.CharField(widget=forms.PasswordInput)
-
-    
-# class UserRegistrationForm(forms.ModelForm):
-#     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-#     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
-
-#     class Meta:
-#         model = User
-#         fields = ('name', 'email')
-
-#     def clean_password2(self):
-#         cd = self.cleaned_data
-#         if cd['password'] != cd['password2']:
-#             raise forms.ValidationError('Passwords don\'t match.')
-#         return cd['password2']
 
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Введите логин'
+        })
+    )
+    email = forms.EmailField(
+        label='',
+        widget=forms.EmailInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Введите email'
+        })
+    )
+    password1 = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Введите пароль'
+        })
+    )
+    password2 = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Повторите пароль'
+        })
+    )
 
     class Meta:
         model = User
@@ -48,5 +54,17 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Введите логин'
+        })
+    )
+    password = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-input',
+            'placeholder': 'Введите пароль'
+        })
+    )

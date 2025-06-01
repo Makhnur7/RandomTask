@@ -19,42 +19,14 @@
   <link rel="stylesheet" href="{% static 'assets/css/templatemo-space-dynamic.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-</head>
+<link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-<!-- <script>
-  function getRandomTask() {
-    fetch("/random-task/")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Ошибка при получении задания");
-        }
-        return response.json();
-      })
-      .then(data => {
-        document.getElementById("task-title").innerText = data.title;
-      })
-      .catch(error => {
-        document.getElementById("task-title").innerText = "Ошибка загрузки задания.";
-        console.error("Ошибка:", error);
-      });
-  }
-</script> -->
+</head>
 
 
 <body>
 
-<!-- ***** Preloader Start ***** -->
-<!-- <div id="js-preloader" class="js-preloader">
-  <div class="preloader-inner">
-    <span class="dot"></span>
-    <div class="dots">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-</div> -->
-<!-- ***** Preloader End ***** -->
 
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
@@ -67,37 +39,59 @@
           </a>
           <ul class="nav">
             <li><a href="{% url 'index' %}">Главная</a></li>
-            <!-- <li class="scroll-to-section"><a href="#portfolio">Интерактивы</a></li> -->
-            <!-- <li><a href="{% url 'index' %}#services">Польза</a></li> -->
-            <!-- <li><a href="{% url 'index' %}#blog">В тренде</a></li>  -->
             <li><a href="{% url 'task_list' %}">Задания и Челленджи</a></li>
             <li><a href="{% url 'index' %}#contact">Связаться с нами</a></li>
             <li class="main-red-button"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
           </ul>        
-          <a class='menu-trigger'>
+          <!-- <a class='menu-trigger'>
               <span>Меню</span>
-          </a>
+          </a> -->
         </nav>
       </div>
     </div>
   </div>
-</header>
-
 {% block content %}
-<div style="margin-top: 120px;" class="container">
-  <h1>{{ title }}</h1>
+<div style="margin-top: 120px;" class="wrapper">
+  <div class="title"><span>Регистрация</span></div>
 
   <form method="post">
-      {% csrf_token %}
+    {% csrf_token %}
 
-      {% for f in form %}
-      <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-      <div class="form-error">{{ f.errors }}</div>
+    {% for field in form %}
+        <div class="row">
+          {% if "email" in field.name %}
+            <i class="fas fa-user"></i>
+          {% elif "password" in field.name %}
+            <i class="fas fa-lock"></i>
+          {% else %}
+            <i class="fas fa-edit"></i>
+          {% endif %}
+          {{ field }}
+          <div class="form-error text-danger">{{ field.errors }}</div>
+        </div>
       {% endfor %}
 
-      <button type="submit">Регистрация</button>
+    <div class="policy-text mt-3" >
+      <input type="checkbox" id="policy" required>
+      <label for="policy">
+        Я принимаю
+        <a href="{% static 'assets/images/hello.avif' %}" class="option">условия использования</a>
+      </label>
+    </div>
+
+    <div class="row button">
+      <input type="submit" value="Зарегистрироваться" />
+    </div>
+    <div class="signup-link mt-3">
+      Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+    </div>
   </form>
 </div>
+
+
+
+
 {% endblock %}
+
 
 

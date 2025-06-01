@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 10vh;
+  background: #e13c3c;
+  display: flex;
+  justify-content:flex-start;
+  min-height: 100vh;
+  background: #f2f2f2;
+  margin-top: 10px;
+  padding: 30px;
+}
+
+
+.wrapper {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  margin: auto;
+  margin-top: 10px;
+  /* transform: translateY(-15%); */
+  /* /* position: relative; */
+}
+  /* .content-with-margin {
+    margin-top: 120px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #fafafa;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  } */
+
+/* Заголовок формы */
+.container h1 {
+  font-size: 59px;
+  color: #fe3f40;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Поля ввода */
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field input,
+.input-field select,
+.input-field textarea {
+  width: 100%;
+  padding: 12px 40px 12px 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.input-field input:focus {
+  border-color: #fe3f40;
+  box-shadow: 0 0 5px rgba(239, 16, 53, 0.3);
+}
+
+/* Иконки в инпутах — если используете */
+.input-field::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Ошибки */
+.form-error {
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
+}
+
+/* Кнопка */
+button[type="submit"] {
+  background-color: #fe3f40;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #fe3f40;
+;
+}
+
+/* Условия */
+.policy-text {
+  font-size: 14px;
+}
+
+.policy-text a {
+  color: #fe3f40;
+  text-decoration: none;
+  
+}
+
+.policy-text a:hover {
+  text-decoration: underline;
+}
+
+/* Ссылка "Уже зарегистрированы?" или "Регистрация" */
+.text-center a {
+  color: #fe3f40;
+  text-decoration: none;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
+
+.right {
+  text-align: right;
+}
+
+.wrapper {
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+}
+.wrapper .title {
+  height: 120px;
+  background: #fe3f40;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form {
+  padding: 25px 35px;
+}
+.wrapper form .row {
+  height: 60px;
+  margin-top: 15px;
+  position: relative;
+}
+.wrapper form .row input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 70px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+form .row input:focus {
+  border-color: #fe3f40;
+}
+form .row input::placeholder {
+  color: #999;
+}
+.wrapper form .row i {
+  position: absolute;
+  width: 55px;
+  height: 100%;
+  color: #fff;
+  font-size: 22px;
+  background: #fe3f40;
+  border: 1px solid #fe3f40;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form .pass {
+  margin-top: 12px;
+}
+.wrapper form .pass a {
+  color: #fe3f40;
+  font-size: 17px;
+  text-decoration: none;
+}
+.wrapper form .pass a:hover {
+  text-decoration: underline;
+}
+.wrapper form .button input {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 0px;
+  background: #fe3f40;
+  border: 1px solid #fe3f40;
+  cursor: pointer;
+}
+form .button input:hover {
+  background: #b81c1c;
+}
+.wrapper form .signup-link {
+  text-align: center;
+  margin-top: 45px;
+  font-size: 17px;
+}
+.wrapper form .signup-link a {
+  color: #fe3f40;
+  text-decoration: none;
+}
+form .signup-link a:hover {
+  text-decoration: underline;
+}
+
