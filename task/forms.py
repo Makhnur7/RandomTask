@@ -19,34 +19,10 @@ class TaskForm(forms.ModelForm):
 
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(
-        label='',
-        widget=forms.TextInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Введите логин'
-        })
-    )
-    email = forms.EmailField(
-        label='',
-        widget=forms.EmailInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Введите email'
-        })
-    )
-    password1 = forms.CharField(
-        label='',
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Введите пароль'
-        })
-    )
-    password2 = forms.CharField(
-        label='',
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Повторите пароль'
-        })
-    )
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Введите логин'}))
+    email = forms.EmailField(label='', widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Введите email'}))
+    password1 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Введите пароль'}))
+    password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Повторите пароль'}))
 
     class Meta:
         model = User
@@ -54,17 +30,5 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(
-        label='',
-        widget=forms.TextInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Введите логин'
-        })
-    )
-    password = forms.CharField(
-        label='',
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-input',
-            'placeholder': 'Введите пароль'
-        })
-    )
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Введите логин'}))
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Введите пароль', 'autocomplete': 'off','data-toggle': 'password'}))

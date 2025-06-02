@@ -24,6 +24,17 @@
 
 </head>
 
+<style>
+  .main-red-button {
+    display: flex;
+  }
+  .atabek{
+    border-radius: 2px;
+    margin-left: 10px;
+  }
+
+
+</style>
 
 <body>
 
@@ -41,8 +52,12 @@
             <li><a href="{% url 'index' %}">Главная</a></li>
             <li><a href="{% url 'task_list' %}">Задания и Челленджи</a></li>
             <li><a href="{% url 'index' %}#contact">Связаться с нами</a></li>
-            <li class="main-red-button"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-          </ul>        
+            {% if request.user.is_authenticated %}
+              <li><a href="{% url 'task_dashboard' %}">Создать</a></li>
+              <li class="main-red-button"><a href="{% url 'logout' %}">{{ user.username }} | Выйти</a></li>
+              {% else %}
+                <li class="main-red-button"><a class="atabek" href="{% url 'register' %}">Регистрация</a>  <a class="atabek" href="{% url 'login' %}">Войти</a></li>
+                {% endif %}          </ul>        
           <!-- <a class='menu-trigger'>
               <span>Меню</span>
           </a> -->
@@ -57,25 +72,32 @@
   <form method="post">
     {% csrf_token %}
 
+{% if form.non_field_errors %}
+  <div class="alert alert-danger mt-2">
+    {{ form.non_field_errors }}
+  </div>
+{% endif %}
+
     {% for field in form %}
-        <div class="row">
+        <div class="row" style="margin-top: 12px;">
           {% if "email" in field.name %}
             <i class="fas fa-user"></i>
           {% elif "password" in field.name %}
-            <i class="fas fa-lock"></i>
+            <i class="fas fa-lock"></i> 
+            
           {% else %}
             <i class="fas fa-edit"></i>
           {% endif %}
           {{ field }}
-          <div class="form-error text-danger">{{ field.errors }}</div>
+          <div class="form-error text-danger" style="margin-top: 20px;">{{ field.errors }}</div>
         </div>
       {% endfor %}
 
     <div class="policy-text mt-3" >
       <input type="checkbox" id="policy" required>
-      <label for="policy">
+      <label for="policy" style="margin-top: 80px;">
         Я принимаю
-        <a href="{% static 'assets/images/hello.avif' %}" class="option">условия использования</a>
+        <a href="{% static 'assets/images/hello.avif' %}" class="option" >условия использования</a>
       </label>
     </div>
 

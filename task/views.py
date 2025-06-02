@@ -13,9 +13,6 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login
 
 
-
-# from django.http import HttpResponse
-# from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -24,20 +21,6 @@ from .serializers import *
 from .forms import *
 from .utils import DataMixin
 
-
-
-# @login_required
-# def create_task(request):
-#     if request.method == 'POST':
-#         form = TaskForm(request.POST)
-#         if form.is_valid():
-#             task = form.save(commit=False)
-#             task.user = request.user
-#             task.save()
-#             return redirect('dashboard')
-#     else:
-#         form = TaskForm()
-#     return render(request, 'tasks/create_task.html', {'form': form})
 
 
 def feedback_form(request):

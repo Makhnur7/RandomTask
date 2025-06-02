@@ -72,8 +72,13 @@
             <!-- <li><a href="{% url 'index' %}#blog">В тренде</a></li>  -->
             <li><a href="{% url 'task_list' %}">Задания и Челленджи</a></li>
             <li><a href="{% url 'index' %}#contact">Связаться с нами</a></li>
-            <li class="main-red-button"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-          </ul>        
+              {% if request.user.is_authenticated %}
+              <li><a href="{% url 'task_dashboard' %}">Создать</a></li>
+              <li class="main-red-button"><a href="{% url 'logout' %}">{{ user.username }} | Выйти</a></li>
+
+              {% else %}
+                <li class="main-red-button"><a class="atabek" href="{% url 'register' %}">Регистрация</a>  <a class="atabek" href="{% url 'login' %}">Войти</a></li>
+                {% endif %}          </ul>        
           <a class='menu-trigger'>
               <span>Меню</span>
           </a>
@@ -93,6 +98,14 @@
 <style>
   textarea {
     resize: none;
+  }
+
+  .main-red-button {
+    display: flex;
+  }
+  .atabek{
+    border-radius: 2px;
+    margin-left: 10px;
   }
 </style>
 
